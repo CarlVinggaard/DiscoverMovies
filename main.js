@@ -5,7 +5,7 @@ Vue.component('todo-item', {
 });
 
 var app = new Vue({
-    el: '#app',
+    el: '#app-1',
     data: {
         message: 'Hello Vue!'
     }

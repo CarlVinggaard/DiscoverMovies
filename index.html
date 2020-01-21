@@ -5,13 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+
+    <!-- VUE -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex"></script>
+
+    <!-- AXIOS -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- MOMENT 
+    <script src="moment.js"></script>
+    <script>
+        moment().format();
+    </script> -->
 
     <title>Document</title>
 </head>
 <body>
 
-    <div id="app">
+    <div id="app-1">
         <app-nav></app-nav>
         <app-view>
             <app-sidebar></app-sidebar>
@@ -20,7 +35,7 @@
     </div>
 
     <div id="app">
-        {{ message }}
+        <p>{{ message }}</p>
     </div>
 
     <div id="app-2">
