@@ -4,7 +4,50 @@ Vue.component('todo-item', {
   template: '<li>{{ todo.text }}</li>'
 });
 
+// Key for the MovieDatabase API
+var APIkey = 'b330fd993b7bc007e1e8713b02dc45f7';
+
+const baseURL = 'https://api.themoviedb.org/3/discover/movie?api_key='
+
+// Use XMLHttpRequest to call the API and parse the JSON object
+function getData(url, cb) {
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("GET", url);
+    xhr.send();
+
+    // readyState == 4 means the request is completed, status == 200 means it is successful
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            cb(JSON.parse(this.responseText));
+        };
+    };
+};
+
+fetchDataFromTMDB = function(baseURL) {
+    var url = 'baseURL' + 'APIkey' + '&';
+};
+
 var app = new Vue({
+    el: '#app',
+    data: {
+        searchString: '',
+        year: '',
+        minrate: '',
+        maxrate: '',
+        genre: ''
+    }
+});
+
+
+
+
+
+
+
+/* --------------------------------------------- */
+
+var app1 = new Vue({
     el: '#app-1',
     data: {
         message: 'Hello Vue!'
@@ -25,17 +68,6 @@ var app3 = new Vue({
     }
 });
 
-var app4 = new Vue({
-  el: '#app-4',
-  data: {
-    todos: [
-      { text: 'Learn JavaScript' },
-      { text: 'Learn Vue' },
-      { text: 'Build something awesome' }
-    ]
-  }
-});
-
 var app5 = new Vue({
     el: '#app-5',
     data: {
@@ -48,12 +80,7 @@ var app5 = new Vue({
     }
 });
 
-var app6 = new Vue({
-    el: '#app-6',
-    data: {
-        message: 'Hello Vue!'
-    }
-});
+
 
 var app7 = new Vue({
     el: '#app-7',
