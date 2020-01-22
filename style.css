@@ -13,10 +13,13 @@ input {
 
 .result-item {
     background: linear-gradient(0.4turn, rgb(221, 247, 255), white);
-    height: 200px;
     border-radius: 5px;
 
     -webkit-box-shadow: 2px 4px 10px 0px #ccc;
     -moz-box-shadow: 2px 4px 10px 0px #ccc;
     box-shadow: 2px 4px 10px 0px #ccc;
+}
+
+.year {
+    font-size: 12px !important;
 }

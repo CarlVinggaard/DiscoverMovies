@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <!-- CUSTOM CS -->
-    <link rel="stylesheet" type="text/css" href="style.css">
-
     <!-- BOOTSTRAP -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -15,9 +12,9 @@
     <!-- VUE -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
-    <!-- VUETIFY 
+    <!-- VUETIFY -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet"> -->
 
     <!-- VUEX -->
@@ -32,6 +29,9 @@
     <script>
         moment().format();
     </script> -->
+
+    <!-- CUSTOM CS -->
+    <link rel="stylesheet" type="text/css" href="style.css">
 
     <title>Discover Movies!</title>
 </head>
@@ -66,26 +66,33 @@
                         <option value="vote_average.desc">Average Rating</option>
                     </select>
                 </div>
-                <button v-on:click="getData()" class="btn btn-primary">Search</button>
+                <button v-on:click="getData" class="btn btn-primary">Search</button>
             </div>
         </div>
             
         <!-- TEST TO SEE IF THE V-MODELS WORK -->
         <div class="row justify-content-center">
             <div class="col-12 col-md-10 col-lg-8 w-100 text-right">
-                <p v-if="results" class="mx-auto">Total results: {{ results.total_results }}</p>
+                <p v-if="totalResults" class="mx-auto">Total results: {{ totalResults }}</p>
             </div>
         </div>
 
-
-
-        <div class="row justify-content-center mx-1">
-            <div class="col-12 col-md-10 col-lg-8 result-item mx-2 py-3 px-4 my-3">
-                <h3>movie_title (year)</h3>
-                <p>Rating</p>
-                <p>Description...</p>
+        <div class="row" id="result-list">
+            <div v-if="results.page1">
+                <div v-for="item in results.page1">
+                    <div class="row justify-content-center mx-1">
+                        <div class="col-12 col-md-10 col-lg-8 result-item mx-2 py-3 px-4 my-3">
+                            <h3>{{item.title}} <span class="year">({{item.release_date}})</span></h3>
+                            <h5>Rating: {{item.vote_average}}</h5>
+                            <h6>Summary</h6>
+                            <p> {{item.overview}}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
+        
 
     </main>
 
@@ -121,6 +128,7 @@
 
     <script src="main.js"></script>
     <script src="genres.js"></script>
+    <script src="getGenreID.js"></script>
     
 </body>
 </html>
