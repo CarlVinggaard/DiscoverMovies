@@ -37,47 +37,57 @@
 </head>
 <body>
 
-    <div class="container-fluid px-5" id="app">
+    <main class="container-fluid px-sm-5" id="app">
         
-        <div class="row">
-            <div class="col-12 text-center">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8 text-center">
                 <h1 class="uppercase my-3 col-12 text-center">Discover Movies</h1>
                 <div class="input-group mb-3">
                     <input type="text" v-model="searchString" class="form-control" placeholder="Title">
                 </div>
                 <div class="input-group mb-3">
-                    <input type="text" v-model="year" class="form-control" placeholder="Year of release">
+                    <input type="text" v-model="releaseYear" class="form-control" placeholder="Year of Release">
                 </div>
                 <div class="input-group mb-3">
-                    <input type="text" v-model="minrate" class="form-control" placeholder="Minimum Rating (0 - 10)">
+                    <input type="text" v-model="minRating" class="form-control" placeholder="Minimum Rating (0 - 10)">
                 </div>
-                <div class="input-group mb-3">
-                    <input type="text" v-model="maxrate" class="form-control" placeholder="Maximum Rating (0 - 10)"> 
-                </div>
+                <!-- <div class="input-group mb-3">
+                    <input type="text" v-model="maxRating" class="form-control" placeholder="Maximum Rating (0 - 10)"> 
+                </div> -->
                 <div class="input-group mb-3">
                     <input type="text" v-model="genre" class="form-control" placeholder="Genre"> 
                 </div>
-                <button onclick="fetchDataFromTMDB" class="btn btn-primary">Search</button>
+                <div class="input-group mb-3">
+                    <select type="text" v-model="sortBy" class="form-control">
+                        <option value="" disabled>Select</option>
+                        <option value="popularity.desc">Popularity</option>
+                        <option value="release_date.desc">Release date (most recent first)</option>
+                        <option value="revenue.desc">Revenue</option>
+                        <option value="vote_average.desc">Average Rating</option>
+                    </select>
+                </div>
+                <button v-on:click="getData()" class="btn btn-primary">Search</button>
             </div>
+        </div>
             
-            <!-- TEST TO SEE IF THE V-MODELS WORK -->
-            <p class="mx-auto">Title: {{ searchString }}</p>
-            <p class="mx-auto">Year: {{ year }}</p>
-            <p class="mx-auto">Min Rating: {{ minrate }}</p>
-            <p class="mx-auto">Max Rating: {{ maxrate }}</p>
-            <p class="mx-auto">Genre: {{ genre }}</p>
-
+        <!-- TEST TO SEE IF THE V-MODELS WORK -->
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8 w-100 text-right">
+                <p v-if="results" class="mx-auto">Total results: {{ results.total_results }}</p>
+            </div>
         </div>
 
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-8 result-item py-3 px-4 my-3">
+
+
+        <div class="row justify-content-center mx-1">
+            <div class="col-12 col-md-10 col-lg-8 result-item mx-2 py-3 px-4 my-3">
                 <h3>movie_title (year)</h3>
                 <p>Rating</p>
                 <p>Description...</p>
             </div>
         </div>
 
-    </div>
+    </main>
 
 
 
@@ -109,21 +119,8 @@
         <button v-on:click="reverseMessage">Reverse Message</button>
     </div>
 
-        
-
-
-    <div id="app-7">
-        <ol>
-            <todo-item
-            v-for="item in groceryList"
-            v-bind:todo="item"
-            v-bind:key="item.id"
-            ></todo-item>
-        </ol>
-    </div>
-
-
     <script src="main.js"></script>
+    <script src="genres.js"></script>
     
 </body>
 </html>
