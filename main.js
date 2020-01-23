@@ -5,14 +5,16 @@ var movieItem = Vue.component("movie-item", {
     template: `<div class="row justify-content-center mx-2">
                         <div class="result-item col-12 col-md-10 col-lg-8 py-3 px-4 my-2">
                             <div class="row">
-                                <div class="col-4 img-container">
+                                <div v-if="poster_path" class="col-4 img-container">
                                     <img class="w-100" :src="'https://image.tmdb.org/t/p/w500' + poster_path">
                                 </div>
                                 <div class="col-8">
                                     <h4>{{title}} <span class="year">({{release_date.slice(0, 4)}})</span></h4>
-                                    <h5>Rating: {{vote_average}}</h5>
-                                    <h6>Summary</h6>
-                                    <p>{{overview}}</p>
+                                    <h5 v-if="vote_average">Rating: {{vote_average}}</h5>
+                                    <div v-if="overview">
+                                        <h6>Summary</h6>
+                                        <p>{{overview}}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -121,43 +123,6 @@ var app = new Vue({
             .catch(err =>
                 console.log(err)
             );
-        }
-    }
-});
-
-/* --------------------------------------------- */
-
-/*  */
-
-var app1 = new Vue({
-    el: '#app-1',
-    data: {
-        message: 'Hello Vue!'
-    }
-});
-
-var app2 = new Vue({
-    el: '#app-2',
-    data: {
-        message: 'You loaded this page on ' + new Date().toLocaleString()
-    }
-});
-
-var app3 = new Vue({
-    el: '#app-3',
-    data: {
-        seen: true
-    }
-});
-
-var app5 = new Vue({
-    el: '#app-5',
-    data: {
-        message: 'Hello Vue.js!'
-    },
-    methods: {
-        reverseMessage: function () {
-        this.message = this.message.split('').reverse().join('')
         }
     }
 });
