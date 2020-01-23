@@ -1,4 +1,3 @@
-// This does something related to Vue
 "use strict"
 
 var movieItem = Vue.component("movie-item", {
@@ -15,7 +14,7 @@ var movieItem = Vue.component("movie-item", {
 var app = new Vue({
     el: '#app',
     data: {
-        searchString: '',
+        query: '',
         releaseYear: '',
         minRating: '',
         maxRating: '',
@@ -34,53 +33,68 @@ var app = new Vue({
         movieItem: movieItem
     },
         methods: { 
-        // Create request URL from input
-        getRequestURL: function(page) {
+        // Create request URL from input. 'Method' is either 'discover' or 'search'.
+        getRequestURLforDiscover: function(page) {
             // Key for the MovieDatabase API
             const APIkey = 'b330fd993b7bc007e1e8713b02dc45f7';
-            const baseURL = 'https://api.themoviedb.org/3/discover/movie?api_key='
-            var url = baseURL + APIkey + '&page=' + page.toString();
+            const baseURL = 'https://api.themoviedb.org/3/discover/movie?api_key=';
+            let url = baseURL + APIkey + '&page=' + page.toString();
             
             if (this.genre) {
                 var genreID = getGenreID(this.genre, genres); // Genres are identified with numbers, mapped in object in genres.js
             }
+            
+            // Check all the values and append them to the URL
+            if (this.genre) { getGenreID(this.genre, genres) };
 
-            /*if (searchString) {
-                url += '&' + 'with_keywords=' + 'app.searchString;
-            }*/
+            if (this.query) { url += '&' + 'query=' + replaceSpacesWithPlusses(this.query) };
 
-            if (this.releaseYear) {
-                url += '&' + 'primary_release_year=' + this.releaseYear;
-            }
+            if (this.releaseYear) { url += '&' + 'primary_release_year=' + this.releaseYear };
 
-            if (this.minRating) {
-                url += '&' + 'vote_average.lte=' + this.minRating;
-            }
+            if (this.minRating) { url += '&' + 'vote_average.lte=' + this.minRating };
 
-            if (genreID) {
-                url += '&' + 'with_genres=' + genreID;
-            }
+            if (genreID) { url += '&' + 'with_genres=' + genreID };
 
-            if (this.sortBy) {
-                url += '&' + 'sort_by=' + this.sortBy;
-            }
+            if (this.sortBy) { url += '&' + 'sort_by=' + this.sortBy };
+
+            console.log(url);
+
+            return url;
+        },
+        // Create request URL from input. 'Method' is either 'discover' or 'search'.
+        getRequestURLforSearch: function(page) {
+            // Key for the MovieDatabase API
+            const APIkey = 'b330fd993b7bc007e1e8713b02dc45f7';
+            const baseURL = 'https://api.themoviedb.org/3/search/movie?api_key=';
+            let url = baseURL + APIkey + '&page=' + page.toString();
+
+            if (this.query) { url += '&' + 'query=' + replaceSpacesWithPlusses(this.query) };
 
             console.log(url);
 
             return url;
         },
         // Returns an array 5 pages of data from TMDb. There are 20 results on each page.
-        getData: function() {
+        getData: function(method) {
             // The API sends one page with 20 results pr call. Call it 5 times to get the top 100 results.
-            var dataArr = new Array();
-            var url = {};
+            let url = {};
 
             // Create the 5 URLs
-            url.page1 = this.getRequestURL(1);
-            url.page2 = this.getRequestURL(2);
-            url.page3 = this.getRequestURL(3);
-            url.page4 = this.getRequestURL(4);
-            url.page5 = this.getRequestURL(5);
+            if (method == 'discover') {
+                url.page1 = this.getRequestURLforDiscover(1);
+                url.page2 = this.getRequestURLforDiscover(2);
+                url.page3 = this.getRequestURLforDiscover(3);
+                url.page4 = this.getRequestURLforDiscover(4);
+                url.page5 = this.getRequestURLforDiscover(5);
+            } else if (method == 'search') {
+                url.page1 = this.getRequestURLforSearch(1);
+                url.page2 = this.getRequestURLforSearch(2);
+                url.page3 = this.getRequestURLforSearch(3);
+                url.page4 = this.getRequestURLforSearch(4);
+                url.page5 = this.getRequestURLforSearch(5);
+            } else {
+                alert("The function 'getData()' was called with an invalid parameter.")
+            }
 
             console.log(url);
 
