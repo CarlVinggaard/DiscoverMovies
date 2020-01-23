@@ -1,14 +1,23 @@
 "use strict"
 
+// The Vue component used to render a movie item in the results list.
 var movieItem = Vue.component("movie-item", {
-    template: `<div class="row justify-content-center mx-1">
-                    <div class="col-12 col-md-10 col-lg-8 result-item mx-2 py-3 px-4 my-3">
-                        <h3>{{item.title}} (year)</h3>
-                        <p>Rating</p>
-                        <p>Description...</p>
-                    </div>
-                </div>`,
-    props: ["name"]
+    template: `<div class="row justify-content-center mx-2">
+                        <div class="result-item col-12 col-md-10 col-lg-8 py-3 px-4 my-2">
+                            <div class="row">
+                                <div class="col-4 img-container">
+                                    <img class="w-100" :src="'https://image.tmdb.org/t/p/w500' + poster_path">
+                                </div>
+                                <div class="col-8">
+                                    <h4>{{title}} <span class="year">({{release_date.slice(0, 4)}})</span></h4>
+                                    <h5>Rating: {{vote_average}}</h5>
+                                    <h6>Summary</h6>
+                                    <p>{{overview}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`,
+    props: ["poster_path", "title", "release_date", "vote_average", "overview"]
 });
 
 var app = new Vue({
@@ -106,6 +115,8 @@ var app = new Vue({
                 this.results.page3 = response[2].data.results;
                 this.results.page4 = response[3].data.results;
                 this.results.page5 = response[4].data.results;
+
+                this.totalResults = response[0].data.total_results;
             })
             .catch(err =>
                 console.log(err)
