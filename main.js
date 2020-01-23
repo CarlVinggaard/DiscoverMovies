@@ -62,7 +62,7 @@ var app = new Vue({
 
             if (this.releaseYear) { url += '&' + 'primary_release_year=' + this.releaseYear };
 
-            if (this.minRating) { url += '&' + 'vote_average.lte=' + this.minRating };
+            if (this.minRating) { url += '&' + 'vote_average.gte=' + this.minRating };
 
             if (genreID) { url += '&' + 'with_genres=' + genreID };
 
