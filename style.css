@@ -11,6 +11,10 @@ input {
     width: 60%;
 }
 
+input:invalid {
+    color: red;
+}
+
 .result-item {
     background: linear-gradient(0.4turn, rgb(221, 247, 255), white);
     border-radius: 5px;
@@ -25,7 +29,7 @@ input {
 }
 
 .btn-search {
-    background: linear-gradient(0.15turn, rgb(255, 189, 68), white, lightblue);
+    background: linear-gradient(0.15turn, rgb(255, 213, 136), white);
     color: darkslategray;
     box-shadow: 1px 2px 8px 0px #eee;
 }

@@ -9,7 +9,7 @@ var movieItem = Vue.component("movie-item", {
                                     <img class="w-100" :src="'https://image.tmdb.org/t/p/w500' + poster_path">
                                 </div>
                                 <div class="col-8">
-                                    <h4>{{title}} <span class="year">({{release_date.slice(0, 4)}})</span></h4>
+                                    <h4>{{title}} <span v-if="release_date" class="year">({{release_date.slice(0, 4)}})</span></h4>
                                     <h5 v-if="vote_average">Rating: {{vote_average}}</h5>
                                     <div v-if="overview">
                                         <h6>Summary</h6>
@@ -31,14 +31,10 @@ var app = new Vue({
         maxRating: '',
         genre: '',
         sortBy: '',
-        results: {  page1: '',
-                    page2: '',
-                    page3: '',
-                    page4: '',
-                    page5: ''
-        },
+        results: '',
         totalResults: 0,
-        currentPage: 1
+        page: 1,
+        queried: false
     },
     components: {
         movieItem: movieItem
@@ -68,8 +64,6 @@ var app = new Vue({
 
             if (this.sortBy) { url += '&' + 'sort_by=' + this.sortBy };
 
-            console.log(url);
-
             return url;
         },
         // Create request URL from input. 'Method' is either 'discover' or 'search'.
@@ -81,44 +75,30 @@ var app = new Vue({
 
             if (this.query) { url += '&' + 'query=' + replaceSpacesWithPlusses(this.query) };
 
-            console.log(url);
-
             return url;
         },
-        // Returns an array 5 pages of data from TMDb. There are 20 results on each page.
-        getData: function(method) {
-            // The API sends one page with 20 results pr call. Call it 5 times to get the top 100 results.
+        // Returns a page with 20 results from TMDb.
+        getData: function(page, method) {
             let url = {};
 
-            // Create the 5 URLs
+            // Create the URL
             if (method == 'discover') {
-                url.page1 = this.getRequestURLforDiscover(1);
-                url.page2 = this.getRequestURLforDiscover(2);
-                url.page3 = this.getRequestURLforDiscover(3);
-                url.page4 = this.getRequestURLforDiscover(4);
-                url.page5 = this.getRequestURLforDiscover(5);
+                url = this.getRequestURLforDiscover(page);
             } else if (method == 'search') {
-                url.page1 = this.getRequestURLforSearch(1);
-                url.page2 = this.getRequestURLforSearch(2);
-                url.page3 = this.getRequestURLforSearch(3);
-                url.page4 = this.getRequestURLforSearch(4);
-                url.page5 = this.getRequestURLforSearch(5);
+                url = this.getRequestURLforSearch(page);
             } else {
-                alert("The function 'getData()' was called with an invalid parameter.")
+                alert("The function 'getData()' was called with an invalid 'method' argument.")
             }
 
             console.log(url);
 
-            axios.all([axios.get(url.page1), axios.get(url.page2), axios.get(url.page3), axios.get(url.page4), axios.get(url.page5)])
+            axios.get(url)
             .then(response => {
                 console.log(response);
-                this.results.page1 = response[0].data.results;
-                this.results.page2 = response[1].data.results;
-                this.results.page3 = response[2].data.results;
-                this.results.page4 = response[3].data.results;
-                this.results.page5 = response[4].data.results;
-
-                this.totalResults = response[0].data.total_results;
+                
+                this.results = response.data.results;
+                this.totalResults = response.data.total_results;
+                this.queried = true; // Used for displaying error message for invalid queries.
             })
             .catch(err =>
                 console.log(err)
