@@ -28,7 +28,7 @@
     <script src="moment.js"></script>
     <script>
         moment().format();
-    </script> -->
+    </script>  -->
 
     <!-- CUSTOM CS -->
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -44,19 +44,19 @@
                 <h1 class="uppercase my-3 col-12 text-center">Discover Movies</h1>
                 <div class="input-group mb-3">
                     <label for="title">Search by title</label>
-                    <input type="text" v-model="query" class="form-control" placeholder="Title" name="title">
+                    <input type="text" v-model="query" class="form-control" placeholder="Title" name="title" @keyup.enter="fetchData(1, 'search')">
                 </div>
                 <div class="col-12 my-3 text-center">
-                    <button v-on:click="getData(1, 'search')" class="btn btn-search py-2 px-5 uppercase">Search</button>
+                    <button @click="fetchData(1, 'search')" class="btn btn-search py-2 px-5 uppercase">Search</button>
                 </div>
 
                 <h2 class="uppercase text-center">or</h2>
 
                 <label for="filters">Discover by year, genre or popularity!</label>
                 <div class="input-group mb-3" name="filters">
-                    <input type="text" v-model="releaseYear" class="form-control mb-3" placeholder="Year of Release" pattern="\d{4}" maxlength="4">
-                    <input type="text" v-model="minRating" class="form-control mb-3" placeholder="Minimum Rating (0 - 10)" pattern="\d">
-                    <input type="text" v-model="genre" class="form-control mb-3" placeholder="Genre">
+                    <input type="text" v-model="releaseYear" class="form-control mb-3" placeholder="Year of Release" pattern="\d{4}" maxlength="4" @keyup.enter="fetchData(1, 'discover')">
+                    <input type="text" v-model="minRating" class="form-control mb-3" placeholder="Minimum Rating (0 - 10)" pattern="\d" @keyup.enter="fetchData(1, 'discover')">
+                    <input type="text" v-model="genre" class="form-control mb-3" placeholder="Genre" @keyup.enter="fetchData(1, 'discover')">
                     <select type="text" v-model="sortBy" class="form-control mb-3">
                         <option value="" disabled>Sort by</option>
                         <option value="popularity.desc">Popularity</option>
@@ -66,7 +66,7 @@
                     </select>
                 </div>
                 <div class="col-12 my-3 text-center">
-                    <button v-on:click="getData(1, 'discover')" class="btn btn-search py-2 px-5 uppercase">Search</button>
+                    <button @click="fetchData(1, 'discover')" class="btn btn-search py-2 px-5 uppercase">Search</button>
                 </div>
             </div>
         </div>
@@ -76,7 +76,7 @@
 
             <div v-if="totalResults" class="row justify-content-center">
                 <div class="col-12 col-md-10 col-lg-8 w-100 text-left">
-                    <p>Total results: {{ totalResults }}</p>
+                    <p>Total results: {{ this.$store.totalResults }}</p>
                     <p v-if="totalResults > 20">Displaying top 20</p>
                 </div> 
             </div>
@@ -98,10 +98,12 @@
 
     </main>
 
-    <script src="main.js"></script>
+    <script type="module" src="components.js"></script>
+    <script type="module" src="main.js"></script>
     <script src="genres.js"></script>
     <script src="getGenreID.js"></script>
     <script src="replaceSpacesWithPlusses.js"></script>
+    <script type="module" src="store.js"></script>
     
 </body>
 </html>
