@@ -12,7 +12,6 @@ const store = new Vuex.Store({
     },
 
     actions: {
-        // Returns a page with 20 results from TMDb. Method can be either 'search' or 'discover'.
         fetchData(context, url) {
 
             axios.get(url)
@@ -26,6 +25,12 @@ const store = new Vuex.Store({
             .catch(err =>
                 console.log(err)
             );
+        },
+        incrementPage(page) {
+            context.commit('incrementPage');
+        },
+        decrementPage(page) {
+            context.commit('decrementPage');
         }
     },
     mutations: {
@@ -41,6 +46,12 @@ const store = new Vuex.Store({
         },
         setPage(state, newState) {
             state.page = newState;
+        },
+        incrementPage(state) {
+            state.page++;
+        },
+        decrementPage(state) {
+            state.page--;
         }
     }
 });
@@ -56,10 +67,10 @@ var app = new Vue({
         genre: '',
         sortBy: '',
         sortByMethods: [
-                    {name: 'Popularity', value: 'popularity.desc'},
-                    {name: 'Release date (most recent first)', value: 'release_date.desc'},
-                    {name: 'Revenue', value: 'revenue.desc'},
-                    {name: 'Average Rating', value: 'vote_average.desc'}
+            {name: 'Popularity', value: 'popularity.desc'},
+            {name: 'Release date (most recent first)', value: 'release_date.desc'},
+            {name: 'Revenue', value: 'revenue.desc'},
+            {name: 'Average Rating', value: 'vote_average.desc'}
         ]
     },
     computed: {
@@ -71,6 +82,12 @@ var app = new Vue({
         },
         queried () {
             return this.$store.state.queried;
+        },
+        page () {
+            return this.$store.state.page;
+        },
+        resultPages () {
+            return Math.ceil(this.$store.state.totalResults/20);
         }
     },
     methods: {
@@ -105,7 +122,7 @@ var app = new Vue({
             
             if (this.query) { url += '&' + 'query=' + replaceSpacesWithPlusses(this.query) };
             if (this.releaseYear) { url += '&' + 'primary_release_year=' + this.releaseYear };
-            if (this.minRating) { url += '&' + 'vote_average.gte=' + this.minRating };
+            if (this.minRating) { url += '&' + 'vote_average.gte=' + replaceCommasWithDots(this.minRating) };
             if (genreID) { url += '&' + 'with_genres=' + genreID };
             if (this.sortBy) { url += '&' + 'sort_by=' + this.sortBy };
 
@@ -120,6 +137,14 @@ var app = new Vue({
             if (this.query) { url += '&' + 'query=' + replaceSpacesWithPlusses(this.query) };
 
             return url;
+        },
+        showNextPage: function(page, method) {
+            // increment page
+            // fetch new data
+        },
+        showPreviousPage: function(page, method) {
+            // decrement page
+            // fetch new data
         }
     },
     store

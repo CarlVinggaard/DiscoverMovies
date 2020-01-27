@@ -7,11 +7,11 @@ var movieItem = Vue.component("movie-item", {
                                 <img :src="'https://image.tmdb.org/t/p/w500' + poster_path">
                             </v-col>
                             <v-col cols="8">
-                                <h4>{{title}} <span v-if="release_date" class="year">({{release_date.slice(0, 4)}})</span></h4>
-                                <h5 v-if="vote_average">Rating: {{vote_average}}</h5>
+                                <h4 class="display-1">{{title}} <span v-if="release_date" class="headline">({{release_date.slice(0, 4)}})</span></h4>
+                                <h5 class="title" v-if="vote_average">Rating: <span class="title font-weight-black">{{vote_average}}</span></h5>
                                 <div v-if="overview">
-                                    <h6>Summary</h6>
-                                    <p>{{overview}}</p>
+                                    <h6 class="body-1 font-weight-bold">Summary</h6>
+                                    <p class="body-1 font-weight-light">{{overview}}</p>
                                 </div>
                             </v-col>
                         </v-row>

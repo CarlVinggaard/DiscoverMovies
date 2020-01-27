@@ -7,6 +7,18 @@ body {
     text-transform: uppercase;
 }
 
+.main-heading {
+    font-family: 'Bangers', cursive !important;
+    font-size: 3rem;
+    background: -webkit-linear-gradient(0.8turn, rgb(71, 71, 247), rgb(136, 35, 136), rgb(235, 55, 55), rgb(236, 167, 83));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subheading {
+    font-size: 1rem;
+}
+
 input {
     width: 60%;
 }
@@ -20,13 +32,10 @@ input:invalid {
     border-radius: 5px;
 }
 
-.year {
-    font-size: 16px !important;
-}
-
 .btn-search {
     background: linear-gradient(0.15turn, rgb(255, 213, 136), white);
-    color: darkslategray;
+    border-radius: 5px;
+    font-size: 1.2rem !important;
 }
 
 .img-container {
@@ -36,4 +45,27 @@ input:invalid {
 
 .img-container > img {
     width: 100%;
+    border-radius: 4px;
+}
+
+/* ------ RESPONSIVE CLASSES ------ */
+
+@media (min-width: 500px) {
+    .main-heading {
+        font-size: 4rem;
+    }
+
+    .subheading {
+        font-size: 1.2rem;
+    }
+}
+
+@media (min-width: 650px) {
+    .main-heading {
+        font-size: 6rem;
+    }
+
+    .subheading {
+        font-size: 1.8rem;
+    }
 }

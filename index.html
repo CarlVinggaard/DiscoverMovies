@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <!-- BOOTSTRAP 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bangers&display=swap" rel="stylesheet">
 
     <!-- VUE -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 
     <!-- VUETIFY -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
 
@@ -44,30 +43,44 @@
 
         <v-row justify="center" >
             <v-col cols="12" md="10" lg="8">
-                <h1 class="uppercase text-center">Discover Movies</h1>
+                <h1 class="uppercase text-center main-heading">Discover Movies</h1>
             </v-col>
         </v-row>
-        <v-row justify="center" >
+
+        <p class="subheading text-center">Search for movies by title or by year, genre and popularity!</p>
+
+        <v-row justify="center">
             <v-col cols="12" md="10" lg="8">
-                <v-input>
-                    <v-text-field type="text" v-model="query" placeholder="Title" name="title" @keyup.enter="fetchData(1, 'search')"></v-text-field>
-                </v-input>
-                <v-col cols="12" class="my-3 text-center">
-                    <v-btn @click="fetchData(1, 'search')" class="btn-search py-2 px-5 elevation-8 uppercase">Search</v-btn>
-                </v-col>
+                <v-tabs centered grow color="indigo" slider-color="indigo">
+                    <v-tab href="#search">
+                    Search by title
+                    </v-tab>
+                    <v-tab href="#discover">
+                    Search by details
+                    </v-tab>
 
-                <h2 class="uppercase text-center">or</h2>
+                    <v-tab-item id="search" class="my-5">
+                        <v-input>
+                            <v-text-field type="text" v-model="query" label="Title" name="title" @keyup.enter="fetchData(1, 'search')"></v-text-field>
+                        </v-input>
+                        <v-col cols="12" class="my-3 text-center">
+                            <v-btn @click="fetchData(1, 'search')" min-width="30%" x-large class="btn-search py-2 px-8 elevation-8 uppercase">Search</v-btn>
+                        </v-col>
+                    </v-tab-item>
 
-                <p>Discover by year, genre or popularity!</p>
-                <v-form class="mb-3">
-                    <v-text-field type="text" v-model="releaseYear" class="mb-3" placeholder="Year of Release" pattern="\d{4}" maxlength="4" @keyup.enter="fetchData(1, 'discover')"></v-text-field>
-                    <v-text-field type="text" v-model="minRating" class="mb-3" placeholder="Minimum Rating (0 - 10)" pattern="\d" @keyup.enter="fetchData(1, 'discover')"></v-text-field>
-                    <v-text-field type="text" v-model="genre" class="mb-3" placeholder="Genre" @keyup.enter="fetchData(1, 'discover')"></v-text-field>
-                    <v-select type="text" v-model="sortBy" class="mb-3" :items="sortByMethods" item-text="name" item-value="value" label="Sort by"></v-select>
-                </v-form>
-                <div class="col-12 my-3 text-center">
-                    <v-btn @click="fetchData(1, 'discover')" class="btn-search py-2 px-5 elevation-8 uppercase">Search</v-btn>
-                </div>
+                    <v-tab-item id="discover" class="my-5">
+                        <v-form class="mb-3">
+                            <v-text-field type="text" v-model="releaseYear" class="mb-3" label="Year of Release" color="indigo" pattern="\d{4}" maxlength="4" @keyup.enter="fetchData(1, 'discover')"></v-text-field>
+                            <v-text-field type="text" v-model="minRating" class="mb-3" label="Minimum Rating (0 - 10)" color="indigo" pattern="\d" @keyup.enter="fetchData(1, 'discover')"></v-text-field>
+                            <v-text-field type="text" v-model="genre" class="mb-3" label="Genre" color="indigo" @keyup.enter="fetchData(1, 'discover')"></v-text-field>
+                            <v-select type="text" v-model="sortBy" class="mb-3" :items="sortByMethods" item-text="name" item-value="value" label="Sort by" color="indigo" @keyup.enter="fetchData(1, 'discover')"></v-select>
+                        </v-form>
+                        <div class="col-12 my-3 text-center">
+                            <v-btn @click="fetchData(1, 'discover')" min-width="30%" x-large class="btn-search py-2 px-8 elevation-8 uppercase">Search</v-btn>
+                        </div>
+                    </v-tab-item>
+
+                </v-tabs>
             </v-col>
         </v-row>
         
@@ -76,8 +89,7 @@
 
             <v-row v-if="totalResults" justify="center">
                 <v-col cols="12" md="10" lg="8">
-                    <p>Total results: {{ totalResults }}</p>
-                    <p v-if="totalResults > 20">Displaying top 20</p>
+                    <p>{{ totalResults }} results</p>
                 </v-cols> 
             </v-row>
 
@@ -96,6 +108,13 @@
 
         </div>
 
+        <v-row v-if="results" justify="center">
+            <v-col cols="12" md="10" lg="8" class="text-center">
+                <v-btn v-if="page > 1">Previous</v-btn>
+                <v-btn v-if="resultPages > page">Next</v-btn>
+            </v-col>
+        </v-row>
+ 
     </v-content>
     </v-app>
 
@@ -104,6 +123,7 @@
     <script src="genres.js"></script>
     <script src="getGenreID.js"></script>
     <script src="replaceSpacesWithPlusses.js"></script>
+    <script src="replaceCommasWithDots.js"></script>
     <script type="module" src="store.js"></script>
     
 </body>

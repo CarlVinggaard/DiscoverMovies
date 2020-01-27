@@ -1,3 +1,3 @@
 function replaceSpacesWithPlusses(string) {
-    return string.replace(/ /g, "+");
+    return string.replace(" ", "+");
 }
