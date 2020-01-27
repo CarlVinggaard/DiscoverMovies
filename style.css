@@ -18,27 +18,22 @@ input:invalid {
 .result-item {
     background: linear-gradient(0.4turn, rgb(221, 247, 255), white);
     border-radius: 5px;
-
-    -webkit-box-shadow: 2px 4px 10px 0px #ccc;
-    -moz-box-shadow: 2px 4px 10px 0px #ccc;
-    box-shadow: 2px 4px 10px 0px #ccc;
 }
 
 .year {
-    font-size: 12px !important;
+    font-size: 16px !important;
 }
 
 .btn-search {
     background: linear-gradient(0.15turn, rgb(255, 213, 136), white);
     color: darkslategray;
-    box-shadow: 1px 2px 8px 0px #eee;
-}
-
-.input-group>.form-control {
-    flex: none !important;
 }
 
 .img-container {
     object-fit: contain;
     overflow: hidden;
+}
+
+.img-container > img {
+    width: 100%;
 }

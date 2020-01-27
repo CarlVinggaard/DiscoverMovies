@@ -47,6 +47,7 @@ const store = new Vuex.Store({
 
 var app = new Vue({
     el: '#app',
+    vuetify: new Vuetify(),
     data: {
         query: '',
         releaseYear: '',
@@ -54,6 +55,12 @@ var app = new Vue({
         maxRating: '',
         genre: '',
         sortBy: '',
+        sortByMethods: [
+                    {name: 'Popularity', value: 'popularity.desc'},
+                    {name: 'Release date (most recent first)', value: 'release_date.desc'},
+                    {name: 'Revenue', value: 'revenue.desc'},
+                    {name: 'Average Rating', value: 'vote_average.desc'}
+        ]
     },
     computed: {
         results () {
