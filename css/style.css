@@ -19,10 +19,6 @@ body {
     font-size: 1rem;
 }
 
-input {
-    width: 60%;
-}
-
 input:invalid {
     color: red;
 }
@@ -32,12 +28,14 @@ input:invalid {
     border-radius: 5px;
 }
 
+/*--- SEARCH BUTTONS ---*/
 .btn-search {
-    background: linear-gradient(0.15turn, rgb(255, 213, 136), white);
+    background: linear-gradient(0.15turn, rgb(255, 213, 136), rgb(255, 245, 245));
     border-radius: 5px;
     font-size: 1.2rem !important;
 }
 
+/* --- IMAGES ON RESULTS ITEMS ---*/
 .img-container {
     object-fit: contain;
     overflow: hidden;
