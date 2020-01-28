@@ -7,6 +7,7 @@ body {
     text-transform: uppercase;
 }
 
+/*--- HEADINGS (SEE ALSO MEDIA QUERIES AT THE BOTTOM) ---*/
 .main-heading {
     font-family: 'Bangers', cursive !important;
     font-size: 3rem;
@@ -19,13 +20,9 @@ body {
     font-size: 1rem;
 }
 
+/*--- INPUT FIELDS ---*/
 input:invalid {
     color: red;
-}
-
-.result-item {
-    background: linear-gradient(0.4turn, rgb(221, 247, 255), white);
-    border-radius: 5px;
 }
 
 /*--- SEARCH BUTTONS ---*/
@@ -35,7 +32,12 @@ input:invalid {
     font-size: 1.2rem !important;
 }
 
-/* --- IMAGES ON RESULTS ITEMS ---*/
+/* --- RESULTS LIST ITEMS ---*/
+.result-item {
+    background: linear-gradient(0.4turn, rgb(221, 247, 255), white);
+    border-radius: 5px;
+}
+
 .img-container {
     object-fit: contain;
     overflow: hidden;
