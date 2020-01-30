@@ -1,3 +1,4 @@
+// Library of valid genres and their IDs
 let genres = [
     {
       "id": 28,
