@@ -29,13 +29,13 @@ endpoints in the tMDb API ('/search' and '/discover'). They are divided into sep
 The Movie Database API: https://www.themoviedb.org/documentation/api
     - This app uses the endpoints '/search' and '/discover'
 
-Vue: https://vuejs.org/
+Vue 2.X: https://vuejs.org/
     - The main front end framework. Includes many useful features for rendering the UI based on data.
 
 VueX: https://vuex.vuejs.org/
     - State management framework for Vue. Used to keep track of search results, pages and other variables. Was very helpful in debugging.
 
-Vuetify: https://vuetifyjs.com/
+Vuetify v2.2.8: https://vuetifyjs.com/
     - Component library for Vue. Is based on the design guidelines of Google's Material Design framework.
 
 Axios: https://github.com/axios/axios
