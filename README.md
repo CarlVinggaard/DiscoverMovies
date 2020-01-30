@@ -12,7 +12,7 @@ The Movie Database: https://www.themoviedb.org/
 ## Features
 
 - The app features two different search methods; 'search by title' and 'search by info'. They are separate because they use two different 
-endpoints in the tMDb API ('search' and 'discover'). They are divided into separate tabs (Vuetify's 'v-tabs' component was very useful).
+endpoints in the tMDb API ('/search' and '/discover'). They are divided into separate tabs (Vuetify's 'v-tabs' component was very useful).
 
 - Vue's 'v-model' directive keeps track of all user input in the text fields.
 
@@ -26,7 +26,8 @@ endpoints in the tMDb API ('search' and 'discover'). They are divided into separ
 
 ## Technology
 
-The Movie Database API: https://www.themoviedb.org/api/documentation
+The Movie Database API: https://www.themoviedb.org/documentation/api
+    - This app uses the endpoints '/search' and '/discover'
 
 Vue: https://vuejs.org/
     - The main front end framework. Includes many useful features for rendering the UI based on data.
